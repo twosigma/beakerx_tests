@@ -14,28 +14,17 @@
     limitations under the License.
 -->
 
-## Dependencies
+The [e2e tests](https://github.com/twosigma/beakerx_tests/tree/master/autotests) directory.
 
-Running the e2e tests from its GitHub source code requires: 
-* chrome browser (80 or higher) 
-* [conda](https://www.anaconda.com/download/)
-* java (1.8 or higher) and Gradle (5.2 or higher)
-* [psutil](https://pypi.org/project/psutil/)
-* any beakerx kernel
-
-## Run the tests
-
-To run tests use `python run_tests.py` with arguments:
-```
-optional arguments:
-  -h, --help  show this help message and exit
-  --app APP   define target application 'notebook' or 'lab'
-  --env ENV   define target conda environment where is jupyter notebook or lab
-  --tst TST   define tests we need to run; for example: groovy.*
-```
-If we run `run_tests.py` script without any arguments it'll use default values as there:
-```
-python run_tests.py --env=beakerx --app=notebook --tst=groovy.*
-```
-
-By default, a jupyter notebook server runs locally at 127.0.0.1:8888 and is accessible only from localhost. 
+## Related repositories:
+* [backend base](https://github.com/twosigma/beakerx_kernel_base)
+* [clojure kernel](https://github.com/twosigma/beakerx_kernel_clojure)
+* [groovy kernel](https://github.com/twosigma/beakerx_kernel_groovy)
+* [java kernel](https://github.com/twosigma/beakerx_kernel_java)
+* [kotlin kernel](https://github.com/twosigma/beakerx_kernel_kotlin)
+* [scala kernel](https://github.com/twosigma/beakerx_kernel_scala)
+* [sql kernel](https://github.com/twosigma/beakerx_kernel_sql)
+* [autotranslation](https://github.com/twosigma/beakerx_kernel_autotranslation)
+* [frontend base](https://github.com/twosigma/beakerx_base)
+* [tabledisplay widget](https://github.com/twosigma/beakerx_tabledisplay)
+* [e2e tests](https://github.com/twosigma/beakerx_tests)
