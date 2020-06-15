@@ -9,6 +9,7 @@
 source ~/anaconda3/etc/profile.d/conda.sh
 conda activate $1
 
+(cd ../../beakerx_kernel_base; ./gradlew clean install)
 (cd ../../beakerx_kernel_groovy/groovy-dist; pip install -r requirements.txt --verbose; beakerx_kernel_groovy install)
 (cd ../../beakerx_kernel_java/java-dist; pip install -r requirements.txt --verbose; beakerx_kernel_java install)
 (cd ../../beakerx_kernel_scala/scala-dist; pip install -r requirements.txt --verbose; beakerx_kernel_scala install)
