@@ -1,0 +1,14 @@
+# IntelliJ
+.idea/
+.iml
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Gradle
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+/build/
+*/build/
