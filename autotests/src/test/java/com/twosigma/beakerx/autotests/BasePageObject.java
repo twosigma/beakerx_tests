@@ -93,7 +93,7 @@ public abstract class BasePageObject {
     }
 
     public List<WebElement> getAllOutputsOfCodeCell(WebElement codeCell, By selector){
-        FluentWait<WebElement> wait = new FluentWait<WebElement>(codeCell).withTimeout(10, TimeUnit.SECONDS);
+        FluentWait<WebElement> wait = new FluentWait<WebElement>(codeCell).withTimeout(20, TimeUnit.SECONDS);
         wait.until(new Function<WebElement, Boolean>() {
             public Boolean apply(WebElement codeCell) {
                 return codeCell.findElements(selector).size() > 0;
