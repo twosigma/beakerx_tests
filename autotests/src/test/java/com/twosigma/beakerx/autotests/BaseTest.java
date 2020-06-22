@@ -32,8 +32,8 @@ public class BaseTest {
     public static void setupClass() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//    options.addArguments("--headless");
-//    options.addArguments("--disable-gpu");
+        options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
         options.addArguments("window-size=1920,1080");
         driver = new ChromeDriver(options);
         if("lab".equalsIgnoreCase(System.getProperty("cur_app"))){

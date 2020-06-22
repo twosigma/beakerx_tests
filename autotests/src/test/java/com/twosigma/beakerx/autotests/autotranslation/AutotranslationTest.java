@@ -1,4 +1,4 @@
-package com.twosigma.beakerx.autotests.groovy;
+package com.twosigma.beakerx.autotests.autotranslation;
 
 import com.twosigma.beakerx.autotests.BaseTest;
 import org.openqa.selenium.WebElement;
