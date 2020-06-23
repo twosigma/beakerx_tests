@@ -39,5 +39,6 @@ test {
     useTestNG() {
         useDefaultListeners = true
     }
+    forkEvery = 1
     systemProperty 'cur_app', System.getProperty('cur_app')
 }

@@ -24,7 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class NotebookPO  extends BasePageObject  {
 
-    WebDriverWait wait = new WebDriverWait(webDriver, 20);
+    WebDriverWait wait = new WebDriverWait(webDriver, 30);
 
     protected NotebookPO(WebDriver webDriver) {
         super(webDriver);
