@@ -17,6 +17,7 @@ conda install -y --use-local beakerx_kernel_clojure
 conda install -y --use-local beakerx_kernel_kotlin
 conda install -y --use-local beakerx_kernel_autotranslation
 conda install -y --use-local beakerx_tabledisplay
+conda install -y --use-local beakerx_widgets
 
 echo To activate this environment, use:
 echo
