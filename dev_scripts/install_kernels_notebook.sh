@@ -19,6 +19,7 @@ conda activate $1
 (cd ../../beakerx_kernel_autotranslation; pip install -r requirements.txt --verbose; beakerx_kernel_autotranslation install)
 (cd ../../beakerx_base; pip install -r requirements.txt --verbose)
 (cd ../../beakerx_tabledisplay/beakerx_tabledisplay; pip install -r requirements.txt --verbose; beakerx_tabledisplay install)
+(cd ../../beakerx_widgets/beakerx; pip install -r requirements.txt --verbose; beakerx install)
 
 echo To activate this environment, use:
 echo

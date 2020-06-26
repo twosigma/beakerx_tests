@@ -15,3 +15,5 @@
 (cd ../../beakerx_kernel_autotranslation; python setup.py sdist; conda-build ./conda_recipe)
 (cd ../../beakerx_base; python setup.py sdist; conda-build ./conda_recipe)
 (cd ../../beakerx_tabledisplay/beakerx_tabledisplay; python setup.py sdist; conda-build ./conda_recipe)
+(cd ../../beakerx_widgets/beakerx; python setup.py sdist; conda-build ./conda_recipe)
+(cd ../../beakerx/beakerx-dist; python setup.py sdist; conda-build ./conda_recipe)
