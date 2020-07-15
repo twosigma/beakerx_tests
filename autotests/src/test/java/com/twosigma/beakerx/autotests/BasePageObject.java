@@ -68,12 +68,20 @@ public abstract class BasePageObject {
         action.pause(mseconds).perform();
     }
 
-    public Screenshot createActualScreenshot(WebElement element, String dirName, String fileName) throws IOException {
-        String pathName = getPathNameForImage(dirName, fileName + "Act");
+    public Screenshot createScreenshot(WebElement element, String dirName, String fileName) throws IOException {
+        String pathName = getPathNameForImage(dirName, fileName);
         Screenshot actualScreenshot =
                 new AShot().coordsProvider(new WebDriverCoordsProvider()).takeScreenshot(webDriver, element);
         ImageIO.write(actualScreenshot.getImage(), imgFormat, new File(pathName));
         return actualScreenshot;
+    }
+
+    public Screenshot createActualScreenshot(WebElement element, String dirName, String fileName) throws IOException {
+        return createScreenshot(element, dirName, fileName + "Act");
+    }
+
+    public Screenshot createExpectedScreenshot(WebElement element, String dirName, String fileName) throws IOException {
+        return createScreenshot(element, dirName, fileName + "Exp");
     }
 
     public int checkScreenshot(WebElement element, String dirName, String fileName) throws IOException {
