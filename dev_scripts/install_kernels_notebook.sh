@@ -16,10 +16,10 @@ conda activate $1
 (cd ../../beakerx_kernel_kotlin/kotlin-dist; pip install -r requirements.txt --verbose; beakerx_kernel_kotlin install)
 (cd ../../beakerx_kernel_sql/sql-dist; pip install -r requirements.txt --verbose; beakerx_kernel_sql install)
 (cd ../../beakerx_kernel_clojure/clojure-dist; pip install -r requirements.txt --verbose; beakerx_kernel_clojure install)
-(cd ../../beakerx_kernel_autotranslation; pip install -r requirements.txt --verbose; beakerx_kernel_autotranslation install)
 (cd ../../beakerx_base; pip install -r requirements.txt --verbose)
+(cd ../../beakerx_kernel_autotranslation; pip install -r requirements.txt --verbose; beakerx_kernel_autotranslation install)
 (cd ../../beakerx_tabledisplay/beakerx_tabledisplay; pip install -r requirements.txt --verbose; beakerx_tabledisplay install)
-(cd ../../beakerx_widgets/beakerx; pip install -r requirements.txt --verbose; beakerx install)
+(cd ../../beakerx_widgets/beakerx_widgets; pip install -r requirements.txt --verbose; beakerx_widgets install)
 
 echo To activate this environment, use:
 echo
