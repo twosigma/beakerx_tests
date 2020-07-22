@@ -17,6 +17,7 @@
 package com.twosigma.beakerx.autotests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -79,6 +80,7 @@ public class LabPO extends BasePageObject {
 
     public WebElement runCodeCellByIndex (int index) {
         WebElement codeCell = this.getCodeCellByIndex(index);
+        ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();", codeCell);
         action.moveToElement(codeCell).click().perform();
         this.clickRunCell();
         waitKernelIdleIcon(10);
