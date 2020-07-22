@@ -41,7 +41,6 @@ public class NotebookPO  extends BasePageObject  {
     @Override
     public WebElement runCodeCellByIndex(int index) {
         WebElement codeCell = this.getCodeCellByIndex(index);
-        ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();", codeCell);
         action.moveToElement(codeCell).click().perform();
         this.clickRunCell();
         waitKernelIdleIcon(10);
