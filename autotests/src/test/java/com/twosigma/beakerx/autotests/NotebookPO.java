@@ -33,7 +33,11 @@ public class NotebookPO  extends BasePageObject  {
     @Override
     public void runNotebookByUrl(String url) {
         webDriver.get("http://127.0.0.1:8888/notebooks" + url);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='notification_kernel']//span[text()='Kernel ready']")));
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='notification_kernel']//span[text()='Kernel ready']")));
+        } catch ( org.openqa.selenium.TimeoutException timeoutException){
+            timeoutException.printStackTrace();
+        }
         waitKernelIdleIcon(10);
     }
 
