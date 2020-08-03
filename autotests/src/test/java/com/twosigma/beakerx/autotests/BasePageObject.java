@@ -17,11 +17,11 @@
 package com.twosigma.beakerx.autotests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
@@ -110,4 +110,17 @@ public abstract class BasePageObject {
         return codeCell.findElements(selector);
     }
 
+    public WebElement runCellToGetDtContainer(int index){
+        WebElement codeCell = runCodeCellByIndex(index);
+        return codeCell.findElement(By.cssSelector("div.dtcontainer"));
+    }
+
+    public WebElement runCellToGetSvgElement(int index){
+        WebElement codeCell = runCodeCellByIndex(index);
+        return codeCell.findElement(By.cssSelector("#svgg"));
+    }
+
+    public void scrollIntoView(WebElement element){
+        ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();",element);
+    }
 }
