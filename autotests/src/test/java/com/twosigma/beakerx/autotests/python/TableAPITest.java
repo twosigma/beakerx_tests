@@ -13,6 +13,7 @@ public class TableAPITest extends BaseTest {
 
     int cellIndex = 0;
     String imgDir = "python" + beakerxPO.fileSeparator + "tableAPITest";
+    boolean createExpectedData = false;
 
     @BeforeClass
     public static void setupClass() {
@@ -43,12 +44,50 @@ public class TableAPITest extends BaseTest {
     @Test(priority = 10, description = "should display beakerx table")
     public void callTableDisplay() throws IOException {
         cellIndex++;
-        WebElement codeCell = beakerxPO.runCodeCellByIndex(cellIndex);
+        testTableScreenshot(cellIndex, "codeCell3");
+}
 
+    @Test(priority = 15, description = "should display beakerx table")
+    public void defaultAlignmentProviderForColumn() throws IOException {
+        cellIndex++;
+        testTableScreenshot(cellIndex, "codeCell4");
+    }
+
+    @Test(priority = 20, description = "should display beakerx table")
+    public void setAlignmentProviderForColumn() throws IOException {
+        cellIndex++;
+        testTableScreenshot(cellIndex, "codeCell5");
+    }
+
+    @Test(priority = 25, description = "should display beakerx table")
+    public void setAlignmentProviderForType() throws IOException {
+        cellIndex++;
+        testTableScreenshot(cellIndex, "codeCell6");
+    }
+
+    @Test(priority = 30, description = "should display beakerx table")
+    public void setBarChartsRenderer() throws IOException {
+        cellIndex++;
+        testTableScreenshot(cellIndex, "codeCell7");
+    }
+
+    @Test(priority = 35, description = "should display beakerx table")
+    public void setFormattingString() throws IOException {
+        cellIndex++;
+        testTableScreenshot(cellIndex, "codeCell8");
+    }
+
+    private void testTableScreenshot(int cellIndex, String fileName) throws IOException {
+        WebElement codeCell = beakerxPO.runCodeCellByIndex(cellIndex);
+        beakerxPO.scrollIntoView(codeCell);
         WebElement element = codeCell.findElement(By.cssSelector("div.p-DataGrid-viewport"));
-//        beakerxPO.createExpectedScreenshot(element, imgDir, "codeCell3");
-        int diff = beakerxPO.checkScreenshot(element, imgDir, "codeCell3");
-        Assert.assertEquals(diff, 0);
+        if(createExpectedData) {
+            beakerxPO.createExpectedScreenshot(element, imgDir, fileName);
+        }
+        else {
+            int diff = beakerxPO.checkScreenshot(element, imgDir, fileName);
+            Assert.assertEquals(diff, 0);
+        }
     }
 
 }
