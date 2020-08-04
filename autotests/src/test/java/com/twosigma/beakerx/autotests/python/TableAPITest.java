@@ -41,7 +41,7 @@ public class TableAPITest extends BaseTest {
         Assert.assertTrue(info.contains("11 columns"));
     }
 
-    @Test(priority = 15, description = "should display beakerx table")
+    @Test(priority = 10, description = "should display beakerx table")
     public void callTableDisplay() throws IOException {
         cellIndex++;
         testTableScreenshot(cellIndex, "codeCell3");
