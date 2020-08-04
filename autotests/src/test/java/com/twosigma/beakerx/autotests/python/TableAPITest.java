@@ -44,7 +44,7 @@ public class TableAPITest extends BaseTest {
     public void callTableDisplay() throws IOException {
         cellIndex++;
         WebElement codeCell = beakerxPO.runCodeCellByIndex(cellIndex);
-
+        beakerxPO.scrollIntoView(codeCell);
         WebElement element = codeCell.findElement(By.cssSelector("div.p-DataGrid-viewport"));
 //        beakerxPO.createExpectedScreenshot(element, imgDir, "codeCell3");
         int diff = beakerxPO.checkScreenshot(element, imgDir, "codeCell3");
