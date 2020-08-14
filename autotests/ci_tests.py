@@ -4,6 +4,8 @@ import argparse
 import signal
 import subprocess
 import platform
+import psutil
+from subprocess import check_output, CalledProcessError
 
 here = os.path.abspath(os.path.dirname(__file__))
 beakerx_dir = os.path.abspath(os.path.join(here, ".."))
@@ -47,8 +49,15 @@ while 1:
         break
 
 # run tests
-tst_command = './gradlew cleanTest test -Dcur_app=%(app)s --tests "com.twosigma.beakerx.autotests.%(tst)s" --info' % { "app" : cur_app, "tst" : tst_templ }
+tst_command = 'gradle --no-daemon cleanTest test -Dcur_app=%(app)s --tests "com.twosigma.beakerx.autotests.%(tst)s" --info' % { "app" : cur_app, "tst" : tst_templ }
 print(tst_command)
 result = subprocess.call(tst_command, shell=True)
+
+# kill unused processes
+if platform.system() == 'Windows':
+    for proc in psutil.process_iter():
+        if proc.name() in ["jupyter-lab.exe", "jupyter.exe", "jupyter-notebook.exe", "chromedriver.exe"]:
+            print(proc)
+            os.kill(proc.pid, signal.SIGTERM)
 if result:
     sys.exit(20)
