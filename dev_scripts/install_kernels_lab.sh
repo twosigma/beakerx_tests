@@ -20,12 +20,10 @@ conda activate $1
 (cd ../../beakerx_kernel_autotranslation; pip install -r requirements.txt --verbose; beakerx_kernel_autotranslation install)
 (cd ../../beakerx_base; pip install -r requirements.txt --verbose)
 (cd ../../beakerx_tabledisplay/beakerx_tabledisplay; pip install -r requirements.txt --verbose; beakerx_tabledisplay install)
-#(cd ../../beakerx_widgets/beakerx; pip install -r requirements.txt --verbose; beakerx install)
+(cd ../../beakerx_widgets/beakerx_widgets; pip install -r requirements.txt --verbose; beakerx install)
 
 jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build
-#(cd ../../beakerx_widgets/js/lab; jupyter labextension install . --no-build)
-#(cd ../../beakerx_widgets/js/lab-theme-dark; jupyter labextension install . --no-build)
-#(cd ../../beakerx_widgets/js/lab-theme-light; jupyter labextension install . --no-build)
+(cd ../../beakerx_widgets/js; jupyter labextension install . --no-build)
 jupyter lab build
 
 echo To activate this environment, use:
