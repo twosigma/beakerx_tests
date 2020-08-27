@@ -1,6 +1,7 @@
 #!/bin/bash
+set -e
 (conda env create -n $1 -f configuration.yml)
-source ~/anaconda3/etc/profile.d/conda.sh
+# source ~/anaconda3/etc/profile.d/conda.sh
 conda activate $1
 (cd ../../beakerx_base; pip install -r requirements.txt --verbose)
 (cd ../../beakerx_kernel_base; ./gradlew clean install)

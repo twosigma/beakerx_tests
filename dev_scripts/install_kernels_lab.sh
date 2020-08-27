@@ -29,6 +29,7 @@ fi
 
 jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build
 (cd ../../beakerx_widgets/js; jupyter labextension install . --no-build)
+(cd ../../beakerx_tabledisplay/js; jupyter labextension install . --no-build)
 jupyter lab build
 
 if [ ! -z "$1" ]
