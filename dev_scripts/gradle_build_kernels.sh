@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 # all projects in one workspace
 # usage:
 # ./gradle_build_kernels.sh

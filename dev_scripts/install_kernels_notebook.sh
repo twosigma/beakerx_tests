@@ -1,13 +1,18 @@
 #!/bin/bash
 
+set -e
+
 # all projects in one workspace
 # usage:
 # ./install_kernels_notebook.sh beakerx_conda_env_name
 #  conda activate beakerx_conda_env_name
 
-( conda env create -n $1 -f configuration.yml)
-source ~/anaconda3/etc/profile.d/conda.sh
-conda activate $1
+if [ ! -z "$1" ]
+then
+	( conda env create -n $1 -f configuration.yml)
+	source ~/anaconda3/etc/profile.d/conda.sh
+	conda activate $1
+fi
 
 (cd ../../beakerx_kernel_base; ./gradlew clean install)
 (cd ../../beakerx_kernel_groovy/groovy-dist; pip install -r requirements.txt --verbose; beakerx_kernel_groovy install)
@@ -21,7 +26,11 @@ conda activate $1
 (cd ../../beakerx_tabledisplay/beakerx_tabledisplay; pip install -r requirements.txt --verbose; beakerx_tabledisplay install)
 (cd ../../beakerx_widgets/beakerx_widgets; pip install -r requirements.txt --verbose; beakerx install)
 
-echo To activate this environment, use:
-echo
-echo      conda activate $1
-echo      
+if [ ! -z "$1" ]
+then
+	echo To activate this environment, use:
+	echo
+	echo      conda activate $1
+	echo
+fi
+      

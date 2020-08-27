@@ -9,3 +9,8 @@ dependencies:
   - ipywidgets>=7.5.1
   - maven
   - py4j
+  - pyspark
+  - bottle
+  - requests
+  - numpy
+  - pandas
