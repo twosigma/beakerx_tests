@@ -34,8 +34,9 @@ jobs:
     - name: Create conda env
       shell: bash -l {0}
       run: |
-        conda create -y --name beakerx_all python=3.7.5 openjdk=11.0.1
+        conda create -y --name beakerx_all python=3.7.5
         conda activate beakerx_all
+        conda install -y -c conda-forge openjdk=11.0.1
         conda install -y -c conda-forge notebook
     - name: Install beakerx_all
       shell: bash -l {0}
