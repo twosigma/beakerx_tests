@@ -50,7 +50,7 @@ jobs:
         chmod +x gradlew
         conda activate beakerx_all
         pip install psutil
-        python ci_tests.py --app=lab --tst=groovy.Groovy* 
+        python ci_tests.py --app=lab --tst=autotranslation.* 
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
