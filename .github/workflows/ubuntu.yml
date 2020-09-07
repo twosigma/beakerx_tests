@@ -1,8 +1,6 @@
 name: Conda packages (Ubuntu Notebook)
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -51,13 +49,7 @@ jobs:
         chmod +x gradlew
         conda activate beakerx_all
         pip install psutil
-        python ci_tests.py --app=notebook --tst=*.* 
-    - name: Archive screenshot results
-      uses: actions/upload-artifact@v1
-      if: always()
-      with:
-        name: screenshots
-        path: autotests/resources/img/python
+        python ci_tests.py --app=notebook --tst=autotranslation.* 
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
