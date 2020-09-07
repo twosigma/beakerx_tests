@@ -52,6 +52,12 @@ jobs:
         conda activate beakerx_all
         pip install psutil
         python ci_tests.py --app=notebook --tst=*.* 
+    - name: Archive screenshot results
+      uses: actions/upload-artifact@v1
+      if: always()
+      with:
+        name: screenshots
+        path: autotests/resources/img/python
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
