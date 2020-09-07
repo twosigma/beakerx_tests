@@ -34,7 +34,7 @@ jobs:
     - name: Create conda env
       shell: bash -l {0}
       run: |
-        conda create -y --name beakerx_all python=3.7.5
+        conda create -y --name beakerx_all python=3.7.5 openjdk=11.0.1
         conda activate beakerx_all
         conda install -y -c conda-forge notebook
     - name: Install beakerx_all
@@ -50,7 +50,7 @@ jobs:
         chmod +x gradlew
         conda activate beakerx_all
         pip install psutil
-        python ci_tests.py --app=notebook --tst=groovy.Groovy* 
+        python ci_tests.py --app=notebook --tst=groovy.* 
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
