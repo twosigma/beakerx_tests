@@ -44,6 +44,8 @@ jobs:
         conda activate beakerx_all
         conda install -y -c beakerx beakerx_all
         conda list
+        beakerx install --lab
+        beakerx_tabledisplay install --lab
     - name: Run e2e tests (Groovy kernel)
       shell: bash -l {0}
       run: |
