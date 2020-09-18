@@ -18,10 +18,14 @@ package com.twosigma.beakerx.autotests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+
+import java.io.IOException;
 
 public class BaseTest {
     public static WebDriver driver;
@@ -57,5 +61,4 @@ public class BaseTest {
             driver.quit();
         }
     }
-
 }
