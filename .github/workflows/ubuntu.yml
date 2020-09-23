@@ -31,6 +31,9 @@ jobs:
     - name: Verify conda version
       shell: bash -l {0}
       run: conda --version
+    - name: Fonts list
+      shell: bash
+      run: fc-list
     - name: Create conda env
       shell: bash -l {0}
       run: |
