@@ -22,6 +22,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.testng.Assert;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
@@ -41,6 +42,7 @@ public abstract class BasePageObject {
     public static String fileSeparator = System.getProperties().getProperty("file.separator");
     public static String imgDir = userDir + fileSeparator + "resources" + fileSeparator + "img";
     public static String imgFormat = "png";
+    public boolean createExpectedData = false;
 
     protected final WebDriver webDriver;
     public Actions action;
@@ -120,7 +122,55 @@ public abstract class BasePageObject {
         return codeCell.findElement(By.cssSelector("#svgg"));
     }
 
+    public WebElement runCellToGetDataGridViewport(int cellIndex){
+        WebElement codeCell = runCodeCellByIndex(cellIndex);
+        scrollIntoView(codeCell);
+        WebElement element = codeCell.findElement(By.cssSelector("div.p-DataGrid-viewport"));
+        return element;
+    }
+
+    public WebElement debug_runCellToGetDataGridViewport(int cellIndex, String dir, String name) throws IOException {
+        WebElement codeCell = runCodeCellByIndex(cellIndex);
+        scrollIntoView(codeCell);
+        createActualScreenshot(codeCell, dir, name);
+        WebElement element;
+        try{
+            element =  codeCell.findElement(By.cssSelector("div.p-DataGrid-viewport"));
+        } catch (org.openqa.selenium.NoSuchElementException exception){
+            exception.printStackTrace();
+            createActualScreenshot(codeCell, dir, name + "error");
+            codeCell = runCodeCellByIndex(cellIndex);
+            element = codeCell.findElement(By.cssSelector("div.p-DataGrid-viewport"));
+        }
+        return element;
+    }
+
     public void scrollIntoView(WebElement element){
         ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();",element);
+    }
+
+    public WebElement getDataGridTooltip(WebElement element){
+        FluentWait<WebElement> wait = new FluentWait<WebElement>(element).withTimeout(20, TimeUnit.SECONDS);
+        wait.until(new Function<WebElement, Boolean>() {
+            public Boolean apply(WebElement element) {
+                return webDriver.findElements(By.cssSelector("div.p-DataGrid-tooltip")).size() > 0;
+            }
+        });
+        return webDriver.findElement(By.cssSelector("div.p-DataGrid-tooltip"));
+    }
+
+    public Actions getAction() {
+        return action;
+    }
+
+
+    public void testTableScreenshot(WebElement element, String ImageDir, String fileName) throws IOException {
+        if(createExpectedData) {
+            createExpectedScreenshot(element, ImageDir, fileName);
+        }
+        else {
+            int diff = checkScreenshot(element, ImageDir, fileName);
+            Assert.assertEquals(diff, 0);
+        }
     }
 }

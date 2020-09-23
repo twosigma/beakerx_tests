@@ -2,6 +2,7 @@ package com.twosigma.beakerx.autotests.python;
 
 import com.twosigma.beakerx.autotests.BaseTest;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -13,7 +14,6 @@ public class TableAPITest extends BaseTest {
 
     int cellIndex = 0;
     String imgDir = "python" + beakerxPO.fileSeparator + "tableAPITest";
-    boolean createExpectedData = false;
 
     @BeforeClass
     public static void setupClass() {
@@ -44,50 +44,161 @@ public class TableAPITest extends BaseTest {
     @Test(priority = 10, description = "should display beakerx table")
     public void callTableDisplay() throws IOException {
         cellIndex++;
-        testTableScreenshot(cellIndex, "codeCell3");
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element, imgDir, "codeCell3");
 }
 
     @Test(priority = 15, description = "should display beakerx table")
     public void defaultAlignmentProviderForColumn() throws IOException {
         cellIndex++;
-        testTableScreenshot(cellIndex, "codeCell4");
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell4");
     }
 
     @Test(priority = 20, description = "should display beakerx table")
     public void setAlignmentProviderForColumn() throws IOException {
         cellIndex++;
-        testTableScreenshot(cellIndex, "codeCell5");
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell5");
     }
 
     @Test(priority = 25, description = "should display beakerx table")
     public void setAlignmentProviderForType() throws IOException {
         cellIndex++;
-        testTableScreenshot(cellIndex, "codeCell6");
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell6");
     }
 
     @Test(priority = 30, description = "should display beakerx table")
     public void setBarChartsRenderer() throws IOException {
         cellIndex++;
-        testTableScreenshot(cellIndex, "codeCell7");
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell7");
     }
 
     @Test(priority = 35, description = "should display beakerx table")
     public void setFormattingString() throws IOException {
         cellIndex++;
-        testTableScreenshot(cellIndex, "codeCell8");
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell8");
     }
 
-    private void testTableScreenshot(int cellIndex, String fileName) throws IOException {
-        WebElement codeCell = beakerxPO.runCodeCellByIndex(cellIndex);
-        beakerxPO.scrollIntoView(codeCell);
-        WebElement element = codeCell.findElement(By.cssSelector("div.p-DataGrid-viewport"));
-        if(createExpectedData) {
-            beakerxPO.createExpectedScreenshot(element, imgDir, fileName);
-        }
-        else {
-            int diff = beakerxPO.checkScreenshot(element, imgDir, fileName);
-            Assert.assertEquals(diff, 0);
-        }
+    @Test(priority = 40, description = "should display beakerx table")
+    public void setHTMLFormat() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell9");
+    }
+
+    @Test(priority = 45, description = "should display beakerx table")
+    public void setColumnVisibility() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell10");
+    }
+
+    @Test(priority = 50, description = "should display beakerx table")
+    public void setColumnOrder() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell11");
+    }
+
+    @Test(priority = 55, description = "should display beakerx table")
+    public void setHighlighterForRow() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell12");
+    }
+
+    @Test(priority = 60, description = "should display beakerx table")
+    public void setHighlighterForColumn() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell13");
+    }
+
+    @Test(priority = 65, description = "should display beakerx table")
+    public void removeAllHighlighters() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell14");
+    }
+
+    @Test(priority = 70, description = "should display beakerx table")
+    public void setHighlighterForType() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell15");
+    }
+
+    @Test(priority = 75, description = "should display beakerx table")
+    public void setUniqueEntriesHighlighter() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell16");
+    }
+
+    @Test(priority = 80, description = "should display beakerx table")
+    public void addCellHighlighter() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell17");
+    }
+
+    @Test(priority = 85, description = "should display beakerx table")
+    public void setFontSize() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell18");
+    }
+
+    @Test(priority = 90, description = "should display beakerx table")
+    public void setHeadersVertical() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell19");
+    }
+
+    @Test(priority = 95, description = "should display beakerx table")
+    public void setFontColorProvider() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell20");
+    }
+
+    @Test(priority = 100, description = "should display tooltip on table")
+    public void addToolTip() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        Point pt = element.getLocation();
+        beakerxPO.getAction().moveByOffset(pt.getX() + 20, pt.getY() + 20).pause(1500).perform();
+        WebElement tooltip = beakerxPO.getDataGridTooltip(element);
+        Assert.assertEquals(tooltip.getText(), "The value is: 0.745");
+    }
+
+    @Test(priority = 105, description = "should display beakerx table")
+    public void callImageFormat() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell22");
+    }
+
+    @Test(priority = 110, description = "should display beakerx table")
+    public void tableDisplayStringFormat_getImageFormat() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell23");
+    }
+
+    @Test(priority = 115, description = "should display beakerx table")
+    public void seamlessUpdateOfTable() throws IOException {
+        cellIndex++;
+        WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell24_1");
+
+        beakerxPO.runCodeCellByIndex(++cellIndex);
+        beakerxPO.testTableScreenshot(element,  imgDir, "codeCell24_2");
     }
 
 }
