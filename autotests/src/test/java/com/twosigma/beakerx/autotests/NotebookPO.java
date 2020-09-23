@@ -102,4 +102,9 @@ public class NotebookPO  extends BasePageObject  {
     public By getAllOutputsStderrSelector() {
         return By.cssSelector("div.output_subarea.output_error");
     }
+
+    @Override
+    public void setTableVersion(String prefix) {
+        tableVersion = prefix;
+    }
 }

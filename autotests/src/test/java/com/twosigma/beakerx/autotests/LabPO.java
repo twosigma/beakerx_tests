@@ -67,7 +67,7 @@ public class LabPO extends BasePageObject {
 
         wait.until(ExpectedConditions.numberOfElementsToBeLessThan(By.cssSelector("li[data-type='document-title']"),1));
         action.pause(5000).perform();
-    };
+    }
 
     public void clickCellAllOutputClear () {
         webDriver.findElement(By.xpath("//div[@class='p-MenuBar-itemLabel' and text()='Edit']")).click();
@@ -75,7 +75,7 @@ public class LabPO extends BasePageObject {
         WebDriverWait wait = new WebDriverWait(webDriver, 10);
         wait.until(ExpectedConditions.visibilityOf(clearAllOutputsMenuItem));
         clearAllOutputsMenuItem.click();
-    };
+    }
 
     public WebElement runCodeCellByIndex (int index) {
         WebElement codeCell = this.getCodeCellByIndex(index);
@@ -83,7 +83,7 @@ public class LabPO extends BasePageObject {
         this.clickRunCell();
         waitKernelIdleIcon(10);
         return codeCell;
-    };
+    }
 
     private void clickRunCell () {
         WebDriverWait wait = new WebDriverWait(webDriver, 10);
@@ -92,7 +92,7 @@ public class LabPO extends BasePageObject {
         WebElement buttonRunCell = webDriver.findElements(By.cssSelector("div.jp-NotebookPanel-toolbar > div.jp-ToolbarButton")).get(5);
         action.click(buttonRunCell).perform();
         waitKernelIdleIcon(10);
-    };
+    }
 
     public void waitKernelIdleIcon (int timeOutInSeconds) {
         WebDriverWait wait = new WebDriverWait(webDriver, timeOutInSeconds);
@@ -113,6 +113,11 @@ public class LabPO extends BasePageObject {
 
     public By getAllOutputsStderrSelector() {
         return By.cssSelector("div.jp-OutputArea-child > div.jp-OutputArea-output[data-mime-type=\"application/vnd.jupyter.stderr\"]");
+    }
+
+    @Override
+    public void setTableVersion(String prefix) {
+        tableVersion = prefix;
     }
 
 }

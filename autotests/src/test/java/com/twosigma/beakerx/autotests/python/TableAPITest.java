@@ -168,13 +168,13 @@ public class TableAPITest extends BaseTest {
     }
 
     @Test(priority = 100, description = "should display tooltip on table")
-    public void addToolTip() throws IOException {
+    public void addToolTip() {
         cellIndex++;
         WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
         Point pt = element.getLocation();
         beakerxPO.getAction().moveByOffset(pt.getX() + 20, pt.getY() + 20).pause(1500).perform();
         WebElement tooltip = beakerxPO.getDataGridTooltip(element);
-        Assert.assertEquals(tooltip.getText(), "The value is: 0.745");
+        beakerxPO.testTextTableValue(tooltip.getText(), imgDir, "codeCell21");
     }
 
     @Test(priority = 105, description = "should display beakerx table")
