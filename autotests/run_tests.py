@@ -82,7 +82,7 @@ while 1:
 
 # run tests
 tst_command = 'gradle --no-daemon cleanTest test -Dcur_app=%(app)s -Dtbl_ver=%(tbl)s -Dcreate_exp_data=%(exp)s --tests "com.twosigma.beakerx.autotests.%(tst)s" --info' % { "app" : cur_app, "tbl" : tbl_ver, "exp" : create_exp_data, "tst" : tst_templ }
-print(tst_command)
+result = subprocess.call(tst_command, shell=True)
 
 # kill unused processes
 if platform.system() == 'Windows':
