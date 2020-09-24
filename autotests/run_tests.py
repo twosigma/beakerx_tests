@@ -37,12 +37,16 @@ test_dir = here
 cur_app = 'notebook'
 conda_env = 'beakerx'
 tst_templ = 'groovy.*'
+tbl_ver= 'v0'
+create_exp_data='no'
 
 argumentList = sys.argv[1:]
 parser = argparse.ArgumentParser()
 parser.add_argument("--app", help="define target application 'notebook' or 'lab'")
 parser.add_argument("--env", help="define target conda environment where is jupyter notebook or lab")
 parser.add_argument("--tst", help="define tests we need to run; for example: groovy.* ")
+parser.add_argument("--tbl", help="define version table tests data")
+parser.add_argument("--exp", help="create expected data (yes/no)")
 args = parser.parse_args()
 
 if args.app:
@@ -53,6 +57,12 @@ if args.env:
 
 if args.tst:
     tst_templ = args.tst
+
+if args.tbl:
+    tbl_ver = args.tbl
+
+if args.exp:
+    create_exp_data = args.exp
 
 # start jupyter notebook
 if platform.system() == 'Windows':
@@ -71,7 +81,7 @@ while 1:
         break
 
 # run tests
-tst_command = 'gradle cleanTest test -Dcur_app=%(app)s --tests "com.twosigma.beakerx.autotests.%(tst)s"' % { "app" : cur_app, "tst" : tst_templ }
+tst_command = 'gradle --no-daemon cleanTest test -Dcur_app=%(app)s -Dtbl_ver=%(tbl)s -Dcreate_exp_data=%(exp)s --tests "com.twosigma.beakerx.autotests.%(tst)s" --info' % { "app" : cur_app, "tbl" : tbl_ver, "exp" : create_exp_data, "tst" : tst_templ }
 result = subprocess.call(tst_command, shell=True)
 
 # kill unused processes

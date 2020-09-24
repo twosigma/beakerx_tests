@@ -40,14 +40,7 @@ public class BaseTest {
         options.addArguments("--disable-gpu");
         options.addArguments("window-size=1920,1080");
         driver = new ChromeDriver(options);
-        if("lab".equalsIgnoreCase(System.getProperty("cur_app"))){
-            System.out.println("current app is jupyter lab");
-            beakerxPO = new LabPO(driver);
-        }
-        else {
-            System.out.println("current app is jupyter notebook");
-            beakerxPO = new NotebookPO(driver);
-        }
+        beakerxPO = BeakerxPOFactory.create(driver);
     }
 
     public static void setBaseURL(String baseURL) {

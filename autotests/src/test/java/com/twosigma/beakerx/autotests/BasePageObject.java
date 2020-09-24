@@ -30,8 +30,10 @@ import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
 
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
@@ -43,6 +45,7 @@ public abstract class BasePageObject {
     public static String imgDir = userDir + fileSeparator + "resources" + fileSeparator + "img";
     public static String imgFormat = "png";
     public boolean createExpectedData = false;
+    public String tableVersion = "v0";
 
     protected final WebDriver webDriver;
     public Actions action;
@@ -60,6 +63,11 @@ public abstract class BasePageObject {
     public abstract By getAllOutputsExecuteResultsSelector();
     public abstract By getAllOutputsStdoutSelector();
     public abstract By getAllOutputsStderrSelector();
+    public abstract void setTableVersion(String prefix);
+
+    public void setCreateExpectedData(boolean createExpectedData) {
+        this.createExpectedData = createExpectedData;
+    }
 
     public void doubleClick(By locator){
         WebElement element = webDriver.findElement(locator);
@@ -99,7 +107,7 @@ public abstract class BasePageObject {
     }
 
     private String getPathNameForImage(String dirName, String fileName){
-        return imgDir + fileSeparator + dirName + fileSeparator + fileName  + "." + imgFormat;
+        return imgDir + fileSeparator + dirName + fileSeparator + tableVersion + fileName  + "." + imgFormat;
     }
 
     public List<WebElement> getAllOutputsOfCodeCell(WebElement codeCell, By selector){
@@ -125,6 +133,7 @@ public abstract class BasePageObject {
     public WebElement runCellToGetDataGridViewport(int cellIndex){
         WebElement codeCell = runCodeCellByIndex(cellIndex);
         scrollIntoView(codeCell);
+        pause(500);
         WebElement element = codeCell.findElement(By.cssSelector("div.p-DataGrid-viewport"));
         return element;
     }
@@ -173,4 +182,37 @@ public abstract class BasePageObject {
             Assert.assertEquals(diff, 0);
         }
     }
+    public void testTextTableValue(String actualValue, String ImageDir, String fileName){
+        if(createExpectedData) {
+            createExpectedTextValue(actualValue, ImageDir, fileName);
+        }
+        else {
+            String expectedValue = readExpectedTextValue(ImageDir, fileName);
+            Assert.assertEquals(actualValue, expectedValue);
+        }
+    }
+
+    public void createExpectedTextValue(String actualValue, String dirName, String fileName){
+        String filePath = imgDir + fileSeparator + dirName + fileSeparator + tableVersion + fileName  + ".txt";
+        Path path = Paths.get(filePath);
+        byte[] strToBytes = actualValue.getBytes();
+        try {
+            Files.write(path, strToBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String readExpectedTextValue(String dirName, String fileName){
+        String filePath = imgDir + fileSeparator + dirName + fileSeparator + tableVersion + fileName  + ".txt";
+        String result = "";
+        Path path = Paths.get(filePath);
+        try {
+            result = Files.readAllLines(path).get(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }
