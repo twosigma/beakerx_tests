@@ -133,7 +133,7 @@ public abstract class BasePageObject {
     public WebElement runCellToGetDataGridViewport(int cellIndex){
         WebElement codeCell = runCodeCellByIndex(cellIndex);
         scrollIntoView(codeCell);
-        pause(500);
+        pause(1000);
         WebElement element = codeCell.findElement(By.cssSelector("div.p-DataGrid-viewport"));
         return element;
     }
