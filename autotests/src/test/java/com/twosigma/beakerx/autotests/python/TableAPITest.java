@@ -172,7 +172,7 @@ public class TableAPITest extends BaseTest {
         cellIndex++;
         WebElement element = beakerxPO.runCellToGetDataGridViewport(cellIndex);
         Point pt = element.getLocation();
-        beakerxPO.getAction().moveByOffset(pt.getX() + 20, pt.getY() + 20).pause(1500).perform();
+        beakerxPO.getAction().moveByOffset(pt.getX() + 10, pt.getY() + 10).pause(1500).perform();
         WebElement tooltip = beakerxPO.getDataGridTooltip(element);
         beakerxPO.testTextTableValue(tooltip.getText(), imgDir, "codeCell21");
     }
