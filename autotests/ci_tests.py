@@ -69,5 +69,11 @@ if platform.system() == 'Windows':
         if proc.name() in ["jupyter-lab.exe", "jupyter.exe", "jupyter-notebook.exe", "chromedriver.exe"]:
             print(proc)
             os.kill(proc.pid, signal.SIGTERM)
+else:
+    os.killpg(os.getpgid(beakerx.pid), signal.SIGKILL)
+    kill_processes('java')
+    kill_processes('jupyter')
+    kill_processes('webdriver')
+
 if result:
     sys.exit(20)
