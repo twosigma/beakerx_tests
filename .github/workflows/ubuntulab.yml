@@ -46,14 +46,14 @@ jobs:
         conda list
         beakerx install --lab
         beakerx_tabledisplay install --lab
-    - name: Run e2e tests 
+    - name: Run e2e tests (table v3) 
       shell: bash -l {0}
       run: |
         cd autotests
         chmod +x gradlew
         conda activate beakerx_all_lab
         pip install psutil
-        python ci_tests.py --app=lab --tst=python.Widget* 
+        python ci_tests.py --app=lab --tbl=v3 --exp=yes --tst=python.Table* 
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
