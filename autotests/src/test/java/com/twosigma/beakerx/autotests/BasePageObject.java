@@ -95,13 +95,32 @@ public abstract class BasePageObject {
     }
 
     public int checkScreenshot(WebElement element, String dirName, String fileName) throws IOException {
+        int attempt = 1;
         Screenshot actualScreenshot = createActualScreenshot(element, dirName, fileName);
-        String expectedPathName = getPathNameForImage(dirName, fileName + "Exp");
+        int diff = getDiffScreenshots(actualScreenshot, dirName, fileName);
+        if(diff < 0){
+            String expectedPathName = getPathNameForImage(dirName, getAttemptExtName(fileName, attempt) + "Exp");
+            while(Files.exists(Paths.get(expectedPathName))){
+                diff = getDiffScreenshots(actualScreenshot, dirName, getAttemptExtName(fileName, attempt));
+                attempt++;
+                expectedPathName = getPathNameForImage(dirName, getAttemptExtName(fileName, attempt) + "Exp");
+            }
+        }
+        return diff;
+    }
+
+    private String getAttemptExtName(String fileName, int attempt){
+        return fileName + "A" + attempt;
+    }
+
+    private int getDiffScreenshots(Screenshot actualScreenshot, String dirName, String expFileName) throws IOException {
+        String expectedPathName = getPathNameForImage(dirName, expFileName + "Exp");
         Screenshot expectedScreenshot = new Screenshot(ImageIO.read(new File(expectedPathName)));
         ImageDiff diff = new ImageDiffer().makeDiff(expectedScreenshot, actualScreenshot);
         if(diff.getDiffSize() > 0) {
-            File diffFile = new File(getPathNameForImage(dirName, fileName + "Dif"));
+            File diffFile = new File(getPathNameForImage(dirName, expFileName + "Dif"));
             ImageIO.write(diff.getMarkedImage(), "png", diffFile);
+            return -1;
         }
         return diff.getDiffSize();
     }
