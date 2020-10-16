@@ -46,13 +46,20 @@ jobs:
         conda list
         beakerx install --lab
         beakerx_tabledisplay install --lab
-    - name: Run e2e tests (table v3) 
+    - name: Run e2e tests (Widgets) 
       shell: bash -l {0}
       run: |
         cd autotests
         chmod +x gradlew
         conda activate beakerx_all_lab
         pip install psutil
+        python ci_tests.py --app=lab --tst=python.Widget* 
+    - name: Run e2e tests (table v3) 
+      shell: bash -l {0}
+      run: |
+        cd autotests
+        chmod +x gradlew
+        conda activate beakerx_all_lab
         python ci_tests.py --app=lab --tbl=v3 --tst=python.Table* 
     - name: Archive screenshot results
       uses: actions/upload-artifact@v1
