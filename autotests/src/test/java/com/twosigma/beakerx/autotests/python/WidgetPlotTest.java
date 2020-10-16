@@ -39,6 +39,8 @@ public class WidgetPlotTest extends BaseTest {
     @Test(priority = 1, description = "Plot has Title and Axis Labels")
     public void createPlotWithTitleAndAxisLabels() {
         cellIndex = 0;
+        beakerxPO.runCodeCellByIndex(cellIndex);
+        beakerxPO.pause(10000);
         WebElement dtContainer = beakerxPO.runCellToGetDtContainer(cellIndex);
         Assert.assertEquals(dtContainer.findElement(By.cssSelector("#plotTitle")).getText(),
                 "We Will Control the Title");
