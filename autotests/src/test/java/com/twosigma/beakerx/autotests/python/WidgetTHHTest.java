@@ -143,4 +143,68 @@ public class WidgetTHHTest extends BaseTest {
         Assert.assertTrue( y0_25 < y0_40);
     }
 
+    @Test(priority = 40, description = "Plot has two polygon elements")
+    public void levelsOfDetails() {
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        Assert.assertTrue(svgElement.findElement(By.cssSelector("#i0 polygon")).isDisplayed());
+        Assert.assertTrue(svgElement.findElement(By.cssSelector("#i1 polygon")).isDisplayed());
+    }
+
+    @Test(priority = 45, description = "Plot has Heatmap with legend")
+    public void createHeatmap() {
+        cellIndex++;
+        beakerxPO.runCodeCellByIndex(cellIndex);
+        cellIndex++;
+        WebElement dtContainer = beakerxPO.runCellToGetDtContainer(cellIndex);
+        Assert.assertEquals(dtContainer.findElements(By.cssSelector("g.heatmap")).size(), 1);
+        Assert.assertEquals(dtContainer.findElements(By.cssSelector("#plotLegend")).size(), 1);
+    }
+
+    @Test(priority = 50, description = "Heatmap has Title and Axis Labels")
+    public void setTitleAndAxisLabelsForHeatmap() {
+        cellIndex++;
+        WebElement dtContainer = beakerxPO.runCellToGetDtContainer(cellIndex);
+        Assert.assertEquals(dtContainer.findElement(By.cssSelector("#plotTitle")).getText(),
+                "Heatmap Second Example");
+        Assert.assertEquals(dtContainer.findElement(By.cssSelector("#xlabel")).getText(),"X Label");
+        Assert.assertEquals(dtContainer.findElement(By.cssSelector("#ylabel")).getText(),"Y Label");
+    }
+
+    @Test(priority = 55, description = "Set top position for legend")
+    public void setTopPositionForHeatmapLegend() {
+        WebElement dtContainer = beakerxPO.runCellToGetDtContainer(cellIndex);
+        int y_svg = dtContainer.findElement(By.cssSelector("svg#svgg")).getLocation().getY();
+        int y_legend = dtContainer.findElement(By.cssSelector("div#plotLegend")).getLocation().getY();
+        Assert.assertTrue(y_svg > y_legend);
+    }
+
+    @Test(priority = 60, description = "Heatmap has gradient color")
+    public  void setGradientColorToHeatmap(){
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        WebElement rect1 = svgElement.findElement(By.cssSelector("rect#i0_1"));
+        WebElement rect550 = svgElement.findElement(By.cssSelector("rect#i0_550"));
+        Assert.assertEquals(rect1.getCssValue("fill"), "rgb(50, 187, 0)");
+        Assert.assertEquals(rect550.getCssValue("fill"), "rgb(238, 236, 2)");
+    }
+
+    @Test(priority = 65, description = "Heatmap has custom gradient color")
+    public  void setCustomGradientColorToHeatmap(){
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        WebElement rect1 = svgElement.findElement(By.cssSelector("rect#i0_1"));
+        WebElement rect35 = svgElement.findElement(By.cssSelector("rect#i0_35"));
+        Assert.assertEquals(rect1.getCssValue("fill"), "rgb(179, 179, 0)");
+        Assert.assertEquals(rect35.getCssValue("fill"), "rgb(255, 199, 0)");
+    }
+
+    @Test(priority = 70, description = "Heatmap has custom size 900x300")
+    public  void setCustomSizeToHeatmap(){
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        Assert.assertEquals(svgElement.getCssValue("width"), "900px");
+        Assert.assertEquals(svgElement.getCssValue("height"), "300px");
+    }
+
 }
