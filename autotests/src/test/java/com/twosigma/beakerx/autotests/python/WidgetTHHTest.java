@@ -207,4 +207,71 @@ public class WidgetTHHTest extends BaseTest {
         Assert.assertEquals(svgElement.getCssValue("height"), "300px");
     }
 
+    @Test(priority = 75, description = "Plot has TreeMap")
+    public  void createTreeMap(){
+        cellIndex ++;
+        beakerxPO.runCodeCellByIndex(cellIndex);
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        Assert.assertEquals(svgElement.findElements(By.cssSelector("g.cell")).size(), 13);
+    }
+
+    @Test(priority = 80, description = "2nd and 13th elements have the same colors and squares")
+    public  void createTreeMap_SQURIFY(){
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        WebElement rect2 = svgElement.findElement(By.cssSelector("g#i2.cell > rect"));
+        WebElement rect3 = svgElement.findElement(By.cssSelector("g#i3.cell > rect"));
+        WebElement rect13 = svgElement.findElement(By.cssSelector("g#i13.cell > rect"));
+        Assert.assertEquals(rect2.getCssValue("fill"), rect3.getCssValue("fill"));
+        Assert.assertNotEquals(rect2.getCssValue("fill"), rect13.getCssValue("fill"));
+        Assert.assertEquals(calculateSquare(rect2), calculateSquare(rect3));
+        Assert.assertNotEquals(calculateSquare(rect2), calculateSquare(rect13));
+    }
+
+    @Test(priority = 85, description = "2nd and 13th elements have the same widths")
+    public  void createTreeMap_SLICE(){
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        WebElement rect2 = svgElement.findElement(By.cssSelector("g#i2.cell > rect"));
+        WebElement rect13 = svgElement.findElement(By.cssSelector("g#i13.cell > rect"));
+
+        Assert.assertNotEquals(Float.parseFloat(rect2.getAttribute("height")),
+                Float.parseFloat(rect13.getAttribute("height")));
+        Assert.assertEquals(Float.parseFloat(rect2.getAttribute("width")),
+                Float.parseFloat(rect13.getAttribute("width")));
+    }
+
+    @Test(priority = 90, description = "2nd and 13th elements have the same widths")
+    public  void createTreeMap_DICE(){
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        WebElement rect2 = svgElement.findElement(By.cssSelector("g#i2.cell > rect"));
+        WebElement rect13 = svgElement.findElement(By.cssSelector("g#i13.cell > rect"));
+
+        Assert.assertNotEquals(Float.parseFloat(rect2.getAttribute("width")),
+                Float.parseFloat(rect13.getAttribute("width")));
+        Assert.assertEquals(Float.parseFloat(rect2.getAttribute("height")),
+                Float.parseFloat(rect13.getAttribute("height")));
+
+    }
+
+    @Test(priority = 95, description = "2nd and 13th elements have the difference in height")
+    public  void createTreeMap_SLICE_DICE(){
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        WebElement rect2 = svgElement.findElement(By.cssSelector("g#i2.cell > rect"));
+        WebElement rect13 = svgElement.findElement(By.cssSelector("g#i13.cell > rect"));
+
+        Assert.assertNotEquals(Float.parseFloat(rect2.getAttribute("width")),
+                Float.parseFloat(rect13.getAttribute("width")));
+        Assert.assertNotEquals(Float.parseFloat(rect2.getAttribute("height")),
+                Float.parseFloat(rect13.getAttribute("height")));
+
+    }
+
+    private Float calculateSquare(WebElement rect){
+        return Float.parseFloat(rect.getAttribute("height")) * Float.parseFloat(rect.getAttribute("width"));
+    }
+
 }
