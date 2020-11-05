@@ -21,7 +21,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
@@ -144,6 +146,11 @@ public abstract class BasePageObject {
         return codeCell.findElement(By.cssSelector("div.dtcontainer"));
     }
 
+    public WebElement getDtContainerByIndex(int index){
+        WebElement codeCell = getCodeCellByIndex(index);
+        return codeCell.findElement(By.cssSelector("div.dtcontainer"));
+    }
+
     public WebElement runCellToGetSvgElement(int index){
         WebElement codeCell = runCodeCellByIndex(index);
         return codeCell.findElement(By.cssSelector("#svgg"));
@@ -175,6 +182,10 @@ public abstract class BasePageObject {
 
     public void scrollIntoView(WebElement element){
         ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();",element);
+    }
+
+    public void scrollBy(int x, int y){
+        ((JavascriptExecutor)webDriver).executeScript(String.format("window.scrollBy(%d, %d)", x, y));
     }
 
     public WebElement getDataGridTooltip(WebElement element){
@@ -232,6 +243,16 @@ public abstract class BasePageObject {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public WebElement getPlotToolTip(WebElement webElement, String cssSelector){
+        FluentWait<WebElement> wait = new FluentWait<WebElement>(webElement).withTimeout(20, TimeUnit.SECONDS);
+        wait.until(new Function<WebElement, Boolean>() {
+            public Boolean apply(WebElement element) {
+                return element.findElements(By.cssSelector(cssSelector)).size() > 0;
+            }
+        });
+        return webElement.findElement(By.cssSelector(cssSelector));
     }
 
 }

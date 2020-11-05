@@ -19,7 +19,9 @@ package com.twosigma.beakerx.autotests.python;
 import com.twosigma.beakerx.autotests.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -186,6 +188,72 @@ public class WidgetPlotTest extends BaseTest {
         cellIndex++;
         WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
         Assert.assertEquals(svgElement.findElements(By.cssSelector("g.plot-text")).size(), 8);
+    }
+
+    @Test(priority = 75, description = "should display Crosshair element")
+    public void createPlotWithCrosshair() {
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        beakerxPO.scrollIntoView(svgElement);
+        beakerxPO.action.moveToElement(svgElement, 20, 20)
+                .pause(1000).moveToElement(svgElement, 50, 50).build().perform();
+        WebElement dtContainer = beakerxPO.getDtContainerByIndex(cellIndex);
+        Assert.assertTrue(dtContainer.findElement(By.cssSelector("div#cursor_xlabel")).isDisplayed());
+        Assert.assertTrue(dtContainer.findElement(By.cssSelector("div#cursor_ylabel")).isDisplayed());
+    }
+
+    @Test(priority = 80, description = "TimePlot has 2 lines and time axis")
+    public void createSimpleTimePlot() {
+        cellIndex += 2;
+        beakerxPO.runCodeCellByIndex(cellIndex);
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        beakerxPO.scrollIntoView(svgElement);
+
+        Assert.assertTrue(svgElement.findElements(By.cssSelector("g#i0 > circle")).size() > 0);
+        Assert.assertTrue(svgElement.findElements(By.cssSelector("g#i1 > circle")).size() > 0);
+        Assert.assertTrue(svgElement.findElement(By.cssSelector("g#i0 > path.plot-line")).isDisplayed());
+        Assert.assertTrue(svgElement.findElement(By.cssSelector("g#i1 > path.plot-line")).isDisplayed());
+        Assert.assertEquals(svgElement.findElement(By.cssSelector("text#label_x_0")).getText(), "1990");
+    }
+
+    @Test(priority = 85, description = "TimePlot has millisecond resolution")
+    public void createMillisecondResolution() {
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        beakerxPO.scrollIntoView(svgElement);
+
+        WebElement rect0 = svgElement.findElement(By.cssSelector("rect#i0_0"));
+        beakerxPO.action.moveToElement(rect0).click().build().perform();
+        WebElement tipElement =
+                beakerxPO.getPlotToolTip(beakerxPO.getDtContainerByIndex(cellIndex), "div#tip_i0_0");
+        Assert.assertTrue(tipElement.getText().contains("x: 2017 Oct 09 Mon, 05:26:41 .624"));
+        Assert.assertTrue(tipElement.getText().contains("y: 0"));
+    }
+
+    @Test(priority = 90, description = "TimePlot has nanosecond resolution")
+    public void createNanosecondResolution() {
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        beakerxPO.scrollIntoView(svgElement);
+
+        WebElement rect1 = svgElement.findElement(By.cssSelector("rect#i0_1"));
+        beakerxPO.action.moveToElement(rect1).click().build().perform();
+        WebElement tipElement =
+                beakerxPO.getPlotToolTip(beakerxPO.getDtContainerByIndex(cellIndex), "div#tip_i0_1");
+        Assert.assertTrue(tipElement.getText().contains("x: 2017 Oct 09 Mon, 02:26:41.624000007"));
+        Assert.assertTrue(tipElement.getText().contains("y: 1"));
+    }
+
+    @Test(priority = 95, description = "Plot has second Y Axis")
+    public void createSecondYAxis() {
+        cellIndex++;
+        WebElement svgElement = beakerxPO.runCellToGetSvgElement(cellIndex);
+        beakerxPO.scrollIntoView(svgElement);
+
+        Assert.assertEquals(svgElement.findElement(By.cssSelector("text#yrlabel")).getText(), "Test y axis");
+        Assert.assertEquals(svgElement.findElement(By.cssSelector("text#label_yr_2")).getText(), "30");
+        Assert.assertTrue(svgElement.findElement(By.cssSelector("line#tick_yr_2")).isEnabled());
     }
 
 }
