@@ -241,7 +241,7 @@ public class WidgetPlotTest extends BaseTest {
         beakerxPO.action.moveToElement(rect1).click().build().perform();
         WebElement tipElement =
                 beakerxPO.getPlotToolTip(beakerxPO.getDtContainerByIndex(cellIndex), "div#tip_i0_1");
-        Assert.assertTrue(tipElement.getText().contains("x: 2017 Oct 09 Mon, 02:26:41.624000007"));
+        Assert.assertEquals(tipElement.getText(), "x: 2017 Oct 09 Mon, 02:26:41.624000007");
         Assert.assertTrue(tipElement.getText().contains("y: 1"));
     }
 
