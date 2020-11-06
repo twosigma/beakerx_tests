@@ -256,4 +256,45 @@ public class WidgetPlotTest extends BaseTest {
         Assert.assertTrue(svgElement.findElement(By.cssSelector("line#tick_yr_2")).isEnabled());
     }
 
+    @Test(priority = 100, description = "Combined plot has 3 plots")
+    public void createLogarithmicScale() {
+        cellIndex++;
+        WebElement codeCell = beakerxPO.runCodeCellByIndex(cellIndex);
+        WebElement combPlot = codeCell.findElement(By.cssSelector("div.combplot-plotcontainer"));
+        beakerxPO.scrollIntoView(combPlot);
+
+        Assert.assertTrue(combPlot.isDisplayed());
+        Assert.assertEquals(combPlot.findElements(By.cssSelector("div.dtcontainer")).size(), 3);
+    }
+
+    @Test(priority = 105, description = "Second plot has Log Y axis")
+    public void logarithmicYAxis() {
+        WebElement codeCell = beakerxPO.getCodeCellByIndex(cellIndex);
+        WebElement combPlot = codeCell.findElement(By.cssSelector("div.combplot-plotcontainer"));
+
+        WebElement g0 = combPlot.findElements(By.cssSelector("div.dtcontainer")).get(0);
+        WebElement g1 = combPlot.findElements(By.cssSelector("div.dtcontainer")).get(1);
+        Assert.assertEquals(getCircleAttribute(g0, "i0_0", "cy"),
+                getCircleAttribute(g1, "i0_0", "cy"));
+        Assert.assertTrue(Double.parseDouble(getCircleAttribute(g0, "i0_50", "cy")) >
+                Double.parseDouble(getCircleAttribute(g1, "i0_50", "cy")));
+    }
+
+    @Test(priority = 110, description = "Second plot has Log X axis")
+    public void logarithmicXAxis() {
+        WebElement codeCell = beakerxPO.getCodeCellByIndex(cellIndex);
+        WebElement combPlot = codeCell.findElement(By.cssSelector("div.combplot-plotcontainer"));
+
+        WebElement g0 = combPlot.findElements(By.cssSelector("div.dtcontainer")).get(0);
+        WebElement g2 = combPlot.findElements(By.cssSelector("div.dtcontainer")).get(2);
+        Assert.assertEquals(getCircleAttribute(g0, "i0_0", "cx"),
+                getCircleAttribute(g2, "i0_0", "cx"));
+        Assert.assertTrue(Double.parseDouble(getCircleAttribute(g0, "i0_50", "cx")) <
+                Double.parseDouble(getCircleAttribute(g2, "i0_50", "cx")));
+    }
+
+    private String getCircleAttribute(WebElement webElement, String index, String attr){
+        return webElement.findElement(By.cssSelector("circle#" + index)).getAttribute(attr);
+    }
+
 }
