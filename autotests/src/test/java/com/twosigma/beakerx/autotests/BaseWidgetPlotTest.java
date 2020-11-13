@@ -3,7 +3,6 @@ package com.twosigma.beakerx.autotests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -11,12 +10,6 @@ import java.util.List;
 public class BaseWidgetPlotTest extends BaseTest {
 
     public int cellIndex = 0;
-
-  /*  @BeforeClass
-    public static void setupClass() {
-        BaseTest.setupClass();
-        beakerxPO.runNotebookByUrl("/autotests/ipynb/python/WidgetPlotTest.ipynb");
-    }*/
 
     @Test(priority = 1, description = "Plot has Title and Axis Labels")
     public void createPlotWithTitleAndAxisLabels() {
