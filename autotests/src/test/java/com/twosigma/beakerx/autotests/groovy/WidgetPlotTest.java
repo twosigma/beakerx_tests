@@ -14,10 +14,10 @@
  *  limitations under the License.
  */
 
-package com.twosigma.beakerx.autotests.python;
+package com.twosigma.beakerx.autotests.groovy;
 
-import com.twosigma.beakerx.autotests.BaseWidgetPlotTest;
 import com.twosigma.beakerx.autotests.BaseTest;
+import com.twosigma.beakerx.autotests.BaseWidgetPlotTest;
 import org.testng.annotations.BeforeClass;
 
 public class WidgetPlotTest extends BaseWidgetPlotTest {
@@ -27,7 +27,7 @@ public class WidgetPlotTest extends BaseWidgetPlotTest {
     @BeforeClass
     public static void setupClass() {
         BaseTest.setupClass();
-        beakerxPO.runNotebookByUrl("/autotests/ipynb/python/WidgetPlotTest.ipynb");
+        beakerxPO.runNotebookByUrl("/autotests/ipynb/groovy/WidgetPlotTest.ipynb");
     }
 
 }
