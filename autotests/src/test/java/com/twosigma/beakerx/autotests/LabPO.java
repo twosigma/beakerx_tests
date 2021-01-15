@@ -35,7 +35,7 @@ public class LabPO extends BasePageObject {
         action.pause(3000).perform();
 
         WebDriverWait wait = new WebDriverWait(webDriver, 10);
-        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector("span[data-icon=\"folder\"]"), 0));
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector("span.jp-BreadCrumbs-home"), 0));
         webDriver.findElement(By.cssSelector("span.jp-BreadCrumbs-home")).click();
         action.pause(500).perform();
 
@@ -46,7 +46,7 @@ public class LabPO extends BasePageObject {
                 i++;
                 continue;
             }
-            doubleClick(By.cssSelector("li.jp-DirListing-item[title='" + arr[i] +"']"));
+            doubleClick(By.cssSelector("li.jp-DirListing-item[title~='" + arr[i] +"']"));
             i++;
         }
     }
@@ -54,8 +54,7 @@ public class LabPO extends BasePageObject {
     /* Close and Shutdown Notebook */
     public void closeAndHaltNotebook () {
         clickCellAllOutputClear();
-        webDriver.findElement(By.xpath("//div[@class='p-MenuBar-itemLabel' and text()='File']")).click();
-
+        webDriver.findElement(By.xpath("//div[contains(@class, 'p-MenuBar-itemLabel') and text()='File']")).click();
         WebElement closeAndCleanupMenuItem = webDriver.findElement(By.cssSelector("li[data-command='filemenu:close-and-cleanup']"));
         WebDriverWait wait = new WebDriverWait(webDriver, 10);
         wait.until(ExpectedConditions.visibilityOf(closeAndCleanupMenuItem));
@@ -70,7 +69,7 @@ public class LabPO extends BasePageObject {
     }
 
     public void clickCellAllOutputClear () {
-        webDriver.findElement(By.xpath("//div[@class='p-MenuBar-itemLabel' and text()='Edit']")).click();
+        webDriver.findElement(By.xpath("//div[contains(@class, 'p-MenuBar-itemLabel') and text()='Edit']")).click();
         WebElement clearAllOutputsMenuItem = webDriver.findElement(By.cssSelector("li[data-command='editmenu:clear-all']"));
         WebDriverWait wait = new WebDriverWait(webDriver, 10);
         wait.until(ExpectedConditions.visibilityOf(clearAllOutputsMenuItem));
@@ -96,7 +95,7 @@ public class LabPO extends BasePageObject {
 
     public void waitKernelIdleIcon (int timeOutInSeconds) {
         WebDriverWait wait = new WebDriverWait(webDriver, timeOutInSeconds);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.jp-Toolbar-kernelStatus.jp-CircleIcon")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div[title='Kernel Idle']")));
     }
 
     public WebElement getCodeCellByIndex (int index) {
