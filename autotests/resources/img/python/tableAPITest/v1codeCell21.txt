@@ -1,1 +1,1 @@
-The value is: 0.745
+The value is: 0.4186
