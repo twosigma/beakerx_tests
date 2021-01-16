@@ -60,7 +60,7 @@ jobs:
         cd autotests
         chmod +x gradlew
         conda activate beakerx_all_lab
-        python ci_tests.py --app=lab --tbl=v3 --tst=python.Table* 
+        python ci_tests.py --app=lab --tbl=v3 --exp=yes --tst=python.Table* 
     - name: Archive screenshot results
       uses: actions/upload-artifact@v1
       if: always()
