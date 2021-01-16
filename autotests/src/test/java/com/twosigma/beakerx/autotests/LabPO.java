@@ -96,6 +96,8 @@ public class LabPO extends BasePageObject {
     public void waitKernelIdleIcon (int timeOutInSeconds) {
         WebDriverWait wait = new WebDriverWait(webDriver, timeOutInSeconds);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div[title='Kernel Idle']")));
+        action.pause(500).perform();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div[title='Kernel Idle']")));
     }
 
     public WebElement getCodeCellByIndex (int index) {
