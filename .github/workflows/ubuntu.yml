@@ -66,7 +66,7 @@ jobs:
       uses: actions/upload-artifact@v1
       if: always()
       with:
-        name: screenshots
+        name: screenshotsV2
         path: ${{ github.workspace }}/autotests/resources/img/python
     - name: Publish Test Report
       if: ${{ always() }}

@@ -44,8 +44,8 @@ jobs:
         conda activate beakerx_all_lab
         conda install -y -c beakerx beakerx_all
         conda list
-        beakerx install --lab
-        beakerx_tabledisplay install --lab
+        beakerx install
+        beakerx_tabledisplay install
     - name: Run e2e tests (Widgets) 
       shell: bash -l {0}
       run: |
@@ -65,7 +65,7 @@ jobs:
       uses: actions/upload-artifact@v1
       if: always()
       with:
-        name: labscreenshots
+        name: labscreenshotsV3
         path: ${{ github.workspace }}/autotests/resources/img/python
     - name: Publish Test Report
       if: ${{ always() }}
