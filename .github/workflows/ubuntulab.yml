@@ -41,7 +41,7 @@ jobs:
       shell: bash -l {0}
       run: |
         conda activate beakerx_all_lab
-        conda install -y -c conda-forge jupyterlab=2
+        conda install -y -c conda-forge jupyterlab=1.2
         conda install -y -c beakerx beakerx_all
         conda list
     - name: Run e2e tests (Widgets) 
@@ -50,7 +50,6 @@ jobs:
         cd autotests
         chmod +x gradlew
         conda activate beakerx_all_lab
-        conda install -y -c conda-forge openjdk=11.0.1
         pip install psutil
         python ci_tests.py --app=lab --tst=python.Widget* 
     - name: Run e2e tests (Table) (screenshots v3) 
