@@ -37,12 +37,15 @@ jobs:
         conda create -y --name beakerx_all_lab python=3.7.5
         conda activate beakerx_all_lab
         conda install -y -c conda-forge openjdk=11.0.1
-        conda install -y -c conda-forge jupyterlab=2
+        pip install yarn
+        pip install nodejs
+        pip install npm
     - name: Install beakerx_all
       shell: bash -l {0}
       run: |
         conda activate beakerx_all_lab
         conda install -y -c beakerx beakerx_all
+        conda install -y -c conda-forge jupyterlab=2
         beakerx install
         beakerx_tabledisplay install
         conda list
