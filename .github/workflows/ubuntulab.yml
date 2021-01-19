@@ -1,4 +1,4 @@
-name: Conda packages (Ubuntu Lab1)
+name: Conda packages (Ubuntu Lab2)
 
 on:
   push:
@@ -44,8 +44,8 @@ jobs:
       shell: bash -l {0}
       run: |
         conda activate beakerx_all_lab
-        conda install -y -c beakerx beakerx_all
         conda install -y -c conda-forge jupyterlab=2
+        conda install -y -c beakerx beakerx_all
         beakerx install
         beakerx_tabledisplay install
         conda list
