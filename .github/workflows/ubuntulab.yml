@@ -43,31 +43,7 @@ jobs:
       run: |
         conda activate beakerx_all_lab
         conda install -y -c beakerx beakerx_all
+        beakerx install
+        beakerx_tabledisplay install
         conda list
-    - name: Run e2e tests (Widgets) 
-      shell: bash -l {0}
-      run: |
-        cd autotests
-        chmod +x gradlew
-        conda activate beakerx_all_lab
-        pip install psutil
-        python ci_tests.py --app=lab --tst=python.Widget* 
-    - name: Run e2e tests (table v3) 
-      shell: bash -l {0}
-      run: |
-        cd autotests
-        chmod +x gradlew
-        conda activate beakerx_all_lab
-        python ci_tests.py --app=lab --tbl=v3 --tst=python.Table* 
-    - name: Archive screenshot results
-      uses: actions/upload-artifact@v1
-      if: always()
-      with:
-        name: labscreenshots
-        path: ${{ github.workspace }}/autotests/resources/img/python
-    - name: Publish Test Report
-      if: ${{ always() }}
-      uses: scacap/action-surefire-report@v1
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        report_paths: "**/test-results/test/TEST-*.xml"
+
