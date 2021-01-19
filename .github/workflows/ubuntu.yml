@@ -61,12 +61,12 @@ jobs:
         cd autotests
         chmod +x gradlew
         conda activate beakerx_all
-        python ci_tests.py --app=notebook --tbl=v2 --tst=python.Table*
+        python ci_tests.py --app=notebook --tbl=v2 --exp=yes --tst=python.Table*
     - name: Archive screenshot results
       uses: actions/upload-artifact@v1
       if: always()
       with:
-        name: screenshots
+        name: screenshotsV2
         path: ${{ github.workspace }}/autotests/resources/img/python
     - name: Publish Test Report
       if: ${{ always() }}
