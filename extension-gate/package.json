@@ -1,0 +1,38 @@
+{
+  "name": "@beakerx/extension-gate",
+  "version": "1.0.0",
+  "description": "Token and interface for a generic extension gating system in BeakerX",
+  "author": "Two Sigma Open Source, LLC",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/twosigma/beakerx_tests/issues"
+  },
+  "homepage": "https://github.com/twosigma/beakerx_tests#readme",
+  "main": "lib/index.js",
+  "files": [
+    "lib/*.{d.ts,js,js.map}"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twosigma/beakerx_tests.git"
+  },
+  "keywords": [
+    "beakerx"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rimraf lib && rimraf tsconfig.tsbuildinfo",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"This is only an interface, no tests necessary.\" && exit 0"
+  },
+  "dependencies": {
+    "@lumino/coreutils": "^1.4.2"
+  },
+  "devDependencies": {
+    "rimraf": "~3.0.0",
+    "typescript": "~4.1.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

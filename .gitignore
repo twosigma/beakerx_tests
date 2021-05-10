@@ -11,3 +11,8 @@ gradle/
 /build/
 gradlew
 gradlew.bat
+
+# NPM and TS
+node_modules
+tsconfig.tsbuildinfo
+lib
