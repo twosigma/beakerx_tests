@@ -1,6 +1,6 @@
 {
   "name": "@beakerx/extension-gate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Token and interface for a generic extension gating system in BeakerX",
   "author": "Two Sigma Open Source, LLC",
   "license": "Apache-2.0",
